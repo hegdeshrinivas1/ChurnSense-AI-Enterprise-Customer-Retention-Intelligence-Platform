@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChurnSense | Enterprise Customer Churn & Explainable AI Intelligence</title>
+  <meta name="description" content="Production-grade telecom customer churn prediction system with game-theoretic SHAP feature attribution and Gemini Flash synthesis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Ambient Background Mesh Glow -->
+  <div class="ambient-glow ambient-top"></div>
+  <div class="ambient-glow ambient-bottom"></div>
+
+  <!-- Global Toast Notifications -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Sticky Glass Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo" aria-label="ChurnSense Home">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="brand-icon">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-name">ChurnSense</span>
+          <span class="brand-badge">ENTERPRISE ML</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#predict-section" class="nav-link">Predictor</a>
+        <a href="#how-it-works" class="nav-link">Architecture</a>
+        <a href="#benchmarks" class="nav-link">Benchmarks</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark mode">
+          <svg id="moon-icon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg id="sun-icon" class="theme-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-pill">
+        <span class="hero-pill-ping"></span>
+        <span class="hero-pill-text">Calibrated ML Pipeline • SHAP Explainability • Gemini Flash</span>
+      </div>
+
+      <h1 class="hero-title">
+        Predict Customer Churn with <span class="gradient-text">Absolute Transparency</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Enterprise retention intelligence engine combining Scikit-Learn pipelines, game-theoretic SHAP feature attribution, and Gemini Flash synthesis to convert raw customer signals into decisive save actions.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#predict-section" class="btn btn-primary btn-glow">
+          Launch Live Predictor
+          <svg viewBox="0 0 20 20" fill="currentColor" class="btn-icon">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+        <a href="#benchmarks" class="btn btn-outline">
+          View Model Benchmarks
+        </a>
+      </div>
+
+      <!-- Live KPI Stat Ribbon -->
+      <div class="kpi-ribbon">
+        <div class="kpi-card">
+          <div class="kpi-value">0.8408</div>
+          <div class="kpi-label">Test ROC-AUC</div>
+          <div class="kpi-sub">5-Fold Stratified CV</div>
+        </div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-card">
+          <div class="kpi-value">78.34%</div>
+          <div class="kpi-label">Churner Recall</div>
+          <div class="kpi-sub">Captures ~4 of 5 Churners</div>
+        </div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-card">
+          <div class="kpi-value">0.50</div>
+          <div class="kpi-label">Calibrated Threshold</div>
+          <div class="kpi-sub">Cost-Sensitive Cutoff</div>
+        </div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-card">
+          <div class="kpi-value">&lt; 15ms</div>
+          <div class="kpi-label">Pipeline Latency</div>
+          <div class="kpi-sub">FastAPI + Joblib Engine</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Error Banner (For 500 or Network Failures) -->
+    <div id="error-banner" class="error-banner hidden" role="alert">
+      <div class="banner-content">
+        <svg class="banner-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+        <span id="error-banner-msg">Network or server error encountered.</span>
+      </div>
+      <button id="banner-retry-btn" class="btn btn-sm btn-outline">Retry</button>
+    </div>
+
+    <!-- Main Workspace Section (Two Columns) -->
+    <section id="predict-section" class="workspace-section">
+      <div class="workspace-grid">
+
+        <!-- LEFT COLUMN: Input Form -->
+        <div class="form-container">
+          <div class="form-header">
+            <div>
+              <h2 class="section-heading">Customer Feature Profiler</h2>
+              <p class="section-subtext">Configure customer attributes manually or test with calibrated persona presets.</p>
+            </div>
+
+            <!-- Model Architecture Selector Bar -->
+            <div class="model-selector-card">
+              <div class="model-selector-header">
+                <div>
+                  <span class="selector-badge">MODEL ENGINE</span>
+                  <h3 class="model-selector-title">Select Active Prediction Architecture:</h3>
+                  <p id="model-desc" class="model-desc-text">Logistic Regression (Tuned L2) • Production Active • 0.8408 Test ROC-AUC</p>
+                </div>
+              </div>
+              <div class="model-tabs-grid">
+                <button type="button" class="model-tab-btn active" data-model="logistic_regression">
+                  <div class="model-tab-top">
+                    <span class="tab-indicator"></span>
+                    <span class="tab-badge badge-active">Winner</span>
+                  </div>
+                  <strong class="model-tab-name">Logistic Regression</strong>
+                  <span class="model-tab-sub">0.8408 ROC-AUC • 78.34% Recall</span>
+                </button>
+                <button type="button" class="model-tab-btn" data-model="random_forest">
+                  <div class="model-tab-top">
+                    <span class="tab-indicator"></span>
+                    <span class="tab-badge badge-bench">Ensemble</span>
+                  </div>
+                  <strong class="model-tab-name">Random Forest</strong>
+                  <span class="model-tab-sub">300 Balanced Trees • 0.8226 AUC</span>
+                </button>
+                <button type="button" class="model-tab-btn" data-model="xgboost">
+                  <div class="model-tab-top">
+                    <span class="tab-indicator"></span>
+                    <span class="tab-badge badge-bench">Boosting</span>
+                  </div>
+                  <strong class="model-tab-name">XGBoost Classifier</strong>
+                  <span class="model-tab-sub">scale_pos_weight=2.76 • 0.8187 AUC</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1-Click Demo Scenarios Showcase with Precomputed Metrics -->
+            <div class="demo-showcase-card">
+              <div class="demo-showcase-header">
+                <div>
+                  <span class="demo-badge">LIVE DEMO MODE</span>
+                  <h3 class="demo-title">1-Click Benchmark Scenarios (No Manual Typing Required)</h3>
+                </div>
+                <span class="demo-hint">Click any case to autofill inputs & run immediate AI inference</span>
+              </div>
+
+              <div class="demo-cards-grid">
+                <!-- Case 1: High Risk -->
+                <div class="demo-case-card demo-case-high">
+                  <div class="demo-case-header">
+                    <span class="case-dot dot-red"></span>
+                    <span class="case-tag tag-high">Case 1: High Risk</span>
+                    <span class="case-metric-pill metric-high font-mono">88.9% Risk</span>
+                  </div>
+                  <h4 class="case-headline">Will Churn (Cutoff: 0.50)</h4>
+                  <p class="case-traits">2 Mo Tenure • Month-to-Month • Fiber Optic • No Support</p>
+                  <button type="button" class="demo-run-btn btn-run-high preset-chip" data-preset="high-risk">
+                    <span>⚡ Run High Risk Demo</span>
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow-icon"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                  </button>
+                </div>
+
+                <!-- Case 2: Loyal -->
+                <div class="demo-case-card demo-case-low">
+                  <div class="demo-case-header">
+                    <span class="case-dot dot-green"></span>
+                    <span class="case-tag tag-low">Case 2: Loyal</span>
+                    <span class="case-metric-pill metric-low font-mono">7.0% Risk</span>
+                  </div>
+                  <h4 class="case-headline">Will Stay (Cutoff: 0.50)</h4>
+                  <p class="case-traits">65 Mo Tenure • 2-Year Contract • DSL • Full Security</p>
+                  <button type="button" class="demo-run-btn btn-run-low preset-chip" data-preset="low-risk">
+                    <span>🛡️ Run Loyal Demo</span>
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow-icon"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                  </button>
+                </div>
+
+                <!-- Case 3: Borderline -->
+                <div class="demo-case-card demo-case-border">
+                  <div class="demo-case-header">
+                    <span class="case-dot dot-amber"></span>
+                    <span class="case-tag tag-border">Case 3: Borderline</span>
+                    <span class="case-metric-pill metric-border font-mono">57.3% Risk</span>
+                  </div>
+                  <h4 class="case-headline">Will Churn (Near 0.50)</h4>
+                  <p class="case-traits">16 Mo Tenure • 1-Year Contract • Fiber Optic • $75/mo</p>
+                  <button type="button" class="demo-run-btn btn-run-border preset-chip" data-preset="borderline">
+                    <span>⚖️ Run Borderline Demo</span>
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow-icon"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="churn-form" novalidate>
+            <!-- Card 1: Customer Profile -->
+            <div class="form-card">
+              <div class="card-header">
+                <div class="card-header-icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="card-title">Customer Demographics & Tenure</h3>
+                  <p class="card-sub">Baseline identity, family status, and relationship length</p>
+                </div>
+              </div>
+
+              <div class="form-row grid-2">
+                <div class="form-group">
+                  <label for="gender">Gender</label>
+                  <select id="gender" name="gender" class="form-input">
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="SeniorCitizen">Senior Citizen</label>
+                  <select id="SeniorCitizen" name="SeniorCitizen" class="form-input">
+                    <option value="0">No (Age &lt; 65)</option>
+                    <option value="1">Yes (Age 65+)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row grid-2">
+                <div class="form-group">
+                  <label for="Partner">Has Partner?</label>
+                  <select id="Partner" name="Partner" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="Dependents">Has Dependents?</label>
+                  <select id="Dependents" name="Dependents" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group slider-group">
+                <div class="slider-header">
+                  <label for="tenure">Relationship Tenure</label>
+                  <span id="tenure-badge" class="slider-badge">12 months</span>
+                </div>
+                <input type="range" id="tenure" name="tenure" min="0" max="72" value="12" class="slider-input">
+                <div class="slider-ticks">
+                  <span>0 mos (New)</span>
+                  <span>24 mos</span>
+                  <span>48 mos</span>
+                  <span>72 mos (Loyal)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: Telecom & Value-Added Services -->
+            <div class="form-card">
+              <div class="card-header">
+                <div class="card-header-icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="card-title">Connectivity & Value-Added Services</h3>
+                  <p class="card-sub">Internet technology and bundled retention anchors</p>
+                </div>
+              </div>
+
+              <div class="form-row grid-2">
+                <div class="form-group">
+                  <label for="PhoneService">Phone Service</label>
+                  <select id="PhoneService" name="PhoneService" class="form-input">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="MultipleLines">Multiple Lines</label>
+                  <select id="MultipleLines" name="MultipleLines" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No phone service">No phone service</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="InternetService">Internet Service Provider</label>
+                <select id="InternetService" name="InternetService" class="form-input">
+                  <option value="Fiber optic">Fiber optic (High-speed, higher price)</option>
+                  <option value="DSL">DSL (Standard copper line)</option>
+                  <option value="No">No Internet Service</option>
+                </select>
+              </div>
+
+              <div class="form-row grid-2">
+                <div class="form-group">
+                  <label for="OnlineSecurity">Online Security Add-on</label>
+                  <select id="OnlineSecurity" name="OnlineSecurity" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes (Sticky feature)</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="OnlineBackup">Cloud Backup Add-on</label>
+                  <select id="OnlineBackup" name="OnlineBackup" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row grid-2">
+                <div class="form-group">
+                  <label for="DeviceProtection">Device Protection Plan</label>
+                  <select id="DeviceProtection" name="DeviceProtection" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="TechSupport">Dedicated Tech Support</label>
+                  <select id="TechSupport" name="TechSupport" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes (Retention anchor)</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row grid-2">
+                <div class="form-group">
+                  <label for="StreamingTV">Streaming TV</label>
+                  <select id="StreamingTV" name="StreamingTV" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="StreamingMovies">Streaming Movies</label>
+                  <select id="StreamingMovies" name="StreamingMovies" class="form-input">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No internet service">No internet service</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Contract & Billing -->
+            <div class="form-card">
+              <div class="card-header">
+                <div class="card-header-icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="card-title">Contract, Invoicing & Billing</h3>
+                  <p class="card-sub">Pricing structure, payment habits, and commitment term</p>
+                </div>
+              </div>
+
+              <div class="form-row grid-2">
+                <div class="form-group">
+                  <label for="Contract">Contract Commitment</label>
+                  <select id="Contract" name="Contract" class="form-input">
+                    <option value="Month-to-month">Month-to-month (High churn risk)</option>
+                    <option value="One year">One year (Moderate lock-in)</option>
+                    <option value="Two year">Two year (Maximum retention)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="PaperlessBilling">Paperless Billing</label>
+                  <select id="PaperlessBilling" name="PaperlessBilling" class="form-input">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="PaymentMethod">Payment Method</label>
+                <select id="PaymentMethod" name="PaymentMethod" class="form-input">
+                  <option value="Electronic check">Electronic check (Higher friction & attrition)</option>
+                  <option value="Mailed check">Mailed check</option>
+                  <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                  <option value="Credit card (automatic)">Credit card (automatic)</option>
+                </select>
+              </div>
+
+              <div class="form-group slider-group">
+                <div class="slider-header">
+                  <label for="MonthlyCharges">Monthly Subscription Fee</label>
+                  <span id="monthly-charges-badge" class="slider-badge">$70.00 / mo</span>
+                </div>
+                <input type="range" id="MonthlyCharges" name="MonthlyCharges" min="18.00" max="120.00" step="0.50" value="70.00" class="slider-input">
+                <div class="slider-ticks">
+                  <span>$18.00</span>
+                  <span>$50.00</span>
+                  <span>$85.00</span>
+                  <span>$120.00</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="field-label-row">
+                  <label for="TotalCharges">Cumulative Billed Charges ($)</label>
+                  <span class="subtle-hint">Auto-calculated: tenure × monthly</span>
+                </div>
+                <input type="number" id="TotalCharges" name="TotalCharges" step="0.10" min="0" max="15000" value="840.0" class="form-input font-mono">
+                <div id="TotalCharges-error" class="field-error-msg hidden"></div>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button type="submit" id="predict-btn" class="btn btn-primary btn-submit btn-glow">
+                <span class="btn-text">Predict & Explain Churn</span>
+                <span class="btn-spinner hidden"></span>
+              </button>
+              <button type="button" id="reset-btn" class="btn btn-secondary">
+                Reset Form
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- RIGHT COLUMN: Sticky Results Panel -->
+        <div class="results-container">
+          <div class="results-card sticky-panel" id="results-panel" aria-live="polite">
+
+            <!-- Empty State -->
+            <div id="results-empty" class="results-empty">
+              <div class="empty-icon-wrap">
+                <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              </div>
+              <h3 class="empty-title">Awaiting Customer Input</h3>
+              <p class="empty-desc">Select a preset persona above or adjust the feature sliders, then click <strong>Predict & Explain Churn</strong> to view the real-time AI risk analysis.</p>
+              <div class="empty-features">
+                <div class="empty-feat-item">✓ 84.08% ROC-AUC Pipeline</div>
+                <div class="empty-feat-item">✓ Mathematical SHAP Drivers</div>
+                <div class="empty-feat-item">✓ Gemini Plain-Language Synthesis</div>
+              </div>
+            </div>
+
+            <!-- Loading Skeleton State -->
+            <div id="results-loading" class="results-loading hidden">
+              <div class="skeleton skeleton-gauge"></div>
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-badge"></div>
+              <div class="skeleton-reasons">
+                <div class="skeleton skeleton-reason"></div>
+                <div class="skeleton skeleton-reason"></div>
+                <div class="skeleton skeleton-reason"></div>
+              </div>
+              <div class="skeleton skeleton-card"></div>
+            </div>
+
+            <!-- Active Prediction Result -->
+            <div id="results-content" class="results-content hidden">
+              <!-- Gauge & Score -->
+              <div class="gauge-section">
+                <div class="gauge-wrapper">
+                  <svg class="gauge-svg" viewBox="0 0 120 120">
+                    <circle class="gauge-bg" cx="60" cy="60" r="48" />
+                    <circle id="gauge-progress" class="gauge-fill" cx="60" cy="60" r="48" />
+                  </svg>
+                  <div class="gauge-center">
+                    <span id="gauge-pct" class="gauge-value font-mono">0%</span>
+                    <span class="gauge-label">CHURN RISK</span>
+                  </div>
+                </div>
+
+                <div class="verdict-wrapper">
+                  <span id="risk-badge" class="risk-badge badge-high">High Risk</span>
+                  <h3 id="verdict-title" class="verdict-title">Will churn</h3>
+                  <div class="threshold-pill">
+                    <span>Decision Cutoff:</span>
+                    <strong id="threshold-val" class="font-mono">0.50</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Top 3 SHAP Drivers -->
+              <div class="reasons-section">
+                <div class="reasons-header-row">
+                  <h4 class="section-subheading">
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="heading-icon">
+                      <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z" clip-rule="evenodd"/>
+                    </svg>
+                    Top Feature Drivers (SHAP Attribution)
+                  </h4>
+                  <span class="shap-tag">Game Theoretic</span>
+                </div>
+                <div id="reasons-list" class="reasons-list">
+                  <!-- Injected via JavaScript -->
+                </div>
+              </div>
+
+              <!-- Plain-Language AI Explanation Card -->
+              <div class="llm-section">
+                <div class="llm-header">
+                  <div class="llm-badge-row">
+                    <span id="llm-source-badge" class="ai-badge badge-gemini">
+                      <svg viewBox="0 0 24 24" fill="currentColor" class="ai-star-icon">
+                        <path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.2L12 16.8 5.7 21.2 8 14 2 9.4h7.6z"/>
+                      </svg>
+                      Gemini Flash Synthesis
+                    </span>
+                  </div>
+                  <span class="llm-tag">Grounded in SHAP</span>
+                </div>
+                <p id="llm-explanation-text" class="llm-body">
+                  Analyzing drivers...
+                </p>
+                <div class="llm-action-bar">
+                  <button type="button" id="copy-summary-btn" class="btn-copy-summary" title="Copy retention explanation to clipboard">
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="copy-icon">
+                      <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+                      <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+                    </svg>
+                    <span>Copy Retention Brief</span>
+                  </button>
+                  <span id="copy-status-msg" class="copy-status-text"></span>
+                </div>
+              </div>
+
+              <!-- Multi-Model Consensus Breakdown -->
+              <div id="model-consensus-box" class="consensus-box">
+                <div class="consensus-header">
+                  <div>
+                    <h4 class="consensus-title">Cross-Model Algorithm Consensus</h4>
+                    <p class="consensus-sub">Predictions across independent model architectures:</p>
+                  </div>
+                  <span id="consensus-verdict-badge" class="consensus-pill pill-agree">Agreement</span>
+                </div>
+                <div class="consensus-grid">
+                  <div class="consensus-card" id="card-lr">
+                    <div class="c-head">
+                      <span class="c-dot dot-active"></span>
+                      <strong class="c-name">Logistic Reg.</strong>
+                    </div>
+                    <span id="prob-lr" class="c-prob font-mono">--%</span>
+                    <span class="c-tag">Production Winner</span>
+                  </div>
+                  <div class="consensus-card" id="card-rf">
+                    <div class="c-head">
+                      <span class="c-dot"></span>
+                      <strong class="c-name">Random Forest</strong>
+                    </div>
+                    <span id="prob-rf" class="c-prob font-mono">--%</span>
+                    <span class="c-tag">300 Trees Bagging</span>
+                  </div>
+                  <div class="consensus-card" id="card-xgb">
+                    <div class="c-head">
+                      <span class="c-dot"></span>
+                      <strong class="c-name">XGBoost</strong>
+                    </div>
+                    <span id="prob-xgb" class="c-prob font-mono">--%</span>
+                    <span class="c-tag">Gradient Boosting</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interactive Retention Strategy Simulator ("What-If" Interventions) -->
+              <div id="retention-simulator" class="retention-simulator">
+                <div class="sim-header">
+                  <div class="sim-icon-badge">🎯</div>
+                  <div>
+                    <h4 class="sim-title">Live Retention Strategy Simulator</h4>
+                    <p class="sim-sub">Click business save plays to simulate immediate churn risk reduction:</p>
+                  </div>
+                </div>
+                <div class="sim-actions-grid">
+                  <button type="button" class="sim-btn" id="sim-contract-btn" title="Simulate switching to 1-Year Contract">
+                    <div class="sim-btn-content">
+                      <span class="sim-btn-icon">📄</span>
+                      <div class="sim-btn-text-wrap">
+                        <strong class="sim-btn-title">Upgrade to 1-Year Contract</strong>
+                        <span class="sim-btn-sub">Adds 12-month lock-in commitment</span>
+                      </div>
+                    </div>
+                    <span class="sim-impact-pill impact-save">~ -28% Risk</span>
+                  </button>
+
+                  <button type="button" class="sim-btn" id="sim-bundle-btn" title="Simulate bundling Tech Support & Online Security">
+                    <div class="sim-btn-content">
+                      <span class="sim-btn-icon">🛡️</span>
+                      <div class="sim-btn-text-wrap">
+                        <strong class="sim-btn-title">Add Tech Support & Security</strong>
+                        <span class="sim-btn-sub">Bundles sticky value-added services</span>
+                      </div>
+                    </div>
+                    <span class="sim-impact-pill impact-save">~ -19% Risk</span>
+                  </button>
+
+                  <button type="button" class="sim-btn" id="sim-autopay-btn" title="Simulate switching to Bank/Card Auto-Pay">
+                    <div class="sim-btn-content">
+                      <span class="sim-btn-icon">💳</span>
+                      <div class="sim-btn-text-wrap">
+                        <strong class="sim-btn-title">Enroll in Automatic Billing</strong>
+                        <span class="sim-btn-sub">Eliminates check & manual friction</span>
+                      </div>
+                    </div>
+                    <span class="sim-impact-pill impact-save">~ -11% Risk</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="info-section">
+      <div class="section-intro">
+        <div class="section-tag">ENGINEERING ARCHITECTURE</div>
+        <h2 class="section-heading centered">How ChurnSense Operates</h2>
+        <p class="section-subtext centered">A resilient three-tier machine learning pipeline built to eliminate black-box risk and training-serving skew.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num font-mono">01</div>
+          <div class="step-content">
+            <h3>Unified Scikit-Learn Pipeline</h3>
+            <p>Raw tabular attributes flow through a synchronized <code>ColumnTransformer</code> with standard numeric scaling and categorical one-hot encoding, feeding directly into a regularized classifier.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num font-mono">02</div>
+          <div class="step-content">
+            <h3>Mathematical SHAP Attribution</h3>
+            <p>Every scoring event generates real-time Shapley values, calculating the exact positive and negative marginal contribution of each customer parameter to eliminate arbitrary predictions.</p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num font-mono">03</div>
+          <div class="step-content">
+            <h3>Generative AI Grounding</h3>
+            <p>Google's Gemini Flash engine converts SHAP attributions into clear, executive 2-sentence retention rationale, guarded with strict sub-second rule-based fallbacks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Model Benchmarks Section -->
+    <section id="benchmarks" class="info-section alternate-bg">
+      <div class="section-intro">
+        <div class="section-tag">MEASURED BENCHMARKS</div>
+        <h2 class="section-heading centered">Model Evaluation & Experiment Tracking</h2>
+        <p class="section-subtext centered">Real performance numbers evaluated via 5-Fold Stratified Cross-Validation on the IBM Telco dataset.</p>
+      </div>
+
+      <!-- Real Benchmark Comparison Table -->
+      <div class="table-container">
+        <table class="benchmark-table">
+          <thead>
+            <tr>
+              <th>Model Architecture</th>
+              <th>CV ROC-AUC</th>
+              <th>Test Precision</th>
+              <th>Test Recall</th>
+              <th>Test F1-Score</th>
+              <th>Test ROC-AUC</th>
+              <th>Deployment Status</th>
+              <th>Inference Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="winner-row">
+              <td>
+                <strong>Logistic Regression</strong>
+                <span class="sub-label">Tuned (L2, C=10.0, lbfgs)</span>
+              </td>
+              <td>0.8460 ± 0.012</td>
+              <td>0.5034</td>
+              <td><strong>78.34%</strong></td>
+              <td>0.6130</td>
+              <td><strong>0.8408</strong></td>
+              <td><span class="badge-active">Production Active</span></td>
+              <td>
+                <button type="button" class="btn-table-switch active" data-model="logistic_regression">
+                  <span>✓ Active Engine</span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Random Forest</strong>
+                <span class="sub-label">300 Trees, Balanced Weights</span>
+              </td>
+              <td>0.8228 ± 0.012</td>
+              <td>0.5473</td>
+              <td>63.37%</td>
+              <td>0.5874</td>
+              <td>0.8226</td>
+              <td><span class="badge-archived">Benchmarked</span></td>
+              <td>
+                <button type="button" class="btn-table-switch" data-model="random_forest">
+                  <span>Test in Predictor →</span>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>XGBoost Classifier</strong>
+                <span class="sub-label">scale_pos_weight = 2.76</span>
+              </td>
+              <td>0.8246 ± 0.009</td>
+              <td>0.5277</td>
+              <td>66.31%</td>
+              <td>0.5877</td>
+              <td>0.8187</td>
+              <td><span class="badge-archived">Benchmarked</span></td>
+              <td>
+                <button type="button" class="btn-table-switch" data-model="xgboost">
+                  <span>Test in Predictor →</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Key Metrics Cards -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-label">Retention Recall</span>
+          <span class="metric-value font-mono">78.34%</span>
+          <span class="metric-desc">Captures ~4 out of every 5 churners</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Decision Boundary</span>
+          <span class="metric-value font-mono">0.50</span>
+          <span class="metric-desc">Calibrated for retention sensitivity</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Discrimination (AUC)</span>
+          <span class="metric-value font-mono">0.8408</span>
+          <span class="metric-desc">Strong classification separation</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Manual Metrics Match</span>
+          <span class="metric-value font-mono">0.00e+00</span>
+          <span class="metric-desc">Zero drift against scikit-learn</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-text">ChurnSense</span>
+        <span class="footer-copy">© 2026 Production Machine Learning Portfolio Project</span>
+      </div>
+      <div class="tech-stack-badges">
+        <span class="tech-badge">Python 3.11</span>
+        <span class="tech-badge">Scikit-Learn</span>
+        <span class="tech-badge">XGBoost</span>
+        <span class="tech-badge">SHAP</span>
+        <span class="tech-badge">MLflow</span>
+        <span class="tech-badge">FastAPI</span>
+        <span class="tech-badge">Gemini Flash</span>
+        <span class="tech-badge">Docker</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Chatbot Launcher Button -->
+  <button id="chat-launcher-btn" class="chat-launcher-btn" aria-label="Open AI Retention Advisor Chatbot">
+    <div class="chat-launcher-icon-wrap">
+      <svg class="chat-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+      </svg>
+    </div>
+    <span class="chat-launcher-label">Ask AI Advisor</span>
+    <span class="chat-launcher-pulse"></span>
+  </button>
+
+  <!-- Interactive Chatbot Drawer / Modal -->
+  <div id="chat-modal" class="chat-modal hidden" role="dialog" aria-labelledby="chat-modal-title" aria-modal="true">
+    <div class="chat-modal-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.2L12 16.8 5.7 21.2 8 14 2 9.4h7.6z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 id="chat-modal-title" class="chat-title">AI Retention Advisor</h3>
+          <span class="chat-status-indicator">
+            <span class="chat-status-dot"></span>
+            <span>Gemini Flash Intelligence</span>
+          </span>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <button id="chat-clear-btn" class="chat-icon-tool" title="Clear conversation" aria-label="Clear chat history">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+        </button>
+        <button id="chat-close-btn" class="chat-icon-tool" title="Close chat" aria-label="Close chat window">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Customer Context Banner -->
+    <div id="chat-context-banner" class="chat-context-banner hidden">
+      <span class="context-tag">Session Context:</span>
+      <span id="chat-context-desc">Customer Risk: --</span>
+    </div>
+
+    <!-- Quick Question Suggestions -->
+    <div class="chat-quick-suggestions">
+      <button type="button" class="quick-chip" data-question="How to use the page?">
+        📖 How to Use
+      </button>
+      <button type="button" class="quick-chip" data-question="What retention offer should we make to this customer?">
+        💡 Retention Offer
+      </button>
+      <button type="button" class="quick-chip" data-question="Why is this customer at risk of churning?">
+        🔍 Why At Risk?
+      </button>
+      <button type="button" class="quick-chip" data-question="How does SHAP feature attribution work?">
+        📊 Explain SHAP
+      </button>
+      <button type="button" class="quick-chip" data-question="Why was decision threshold 0.50 chosen?">
+        ⚖️ Decision Cutoff
+      </button>
+    </div>
+
+    <!-- Messages Container -->
+    <div id="chat-messages" class="chat-messages" aria-live="polite">
+      <div class="chat-msg msg-assistant">
+        <div class="msg-bubble">
+          👋 Welcome! I am your <strong>ChurnSense AI Retention Advisor</strong>. Ask me how to use the dashboard, why a customer is predicted at risk, recommended save offers, or how our ML metrics (ROC-AUC 0.8408, SHAP values) work!
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input Form -->
+    <form id="chat-form" class="chat-form">
+      <input type="text" id="chat-input" class="chat-input" placeholder="Ask a doubt or retention question..." autocomplete="off" required>
+      <button type="submit" id="chat-send-btn" class="chat-send-btn" aria-label="Send message">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

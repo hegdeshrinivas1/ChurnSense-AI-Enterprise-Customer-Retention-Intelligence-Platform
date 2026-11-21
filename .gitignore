@@ -1,0 +1,39 @@
+# Environment & secrets
+.env
+.env.local
+
+# Virtual environment & caches
+.venv/
+env/
+venv/
+.uv_cache/
+.uv_python/
+.dist/
+.vscode/
+
+# MLflow
+mlruns/
+mlartifacts/
+mlflow.db
+
+# Models & artifacts (generated via training)
+models/*.joblib
+models/*.json
+models/*.png
+!models/.gitkeep
+
+# Data (raw and processed data)
+data/raw/*.csv
+data/processed/
+!data/raw/.gitkeep
+
+# Python cache & build
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# OS artifacts
+.DS_Store
+Thumbs.db

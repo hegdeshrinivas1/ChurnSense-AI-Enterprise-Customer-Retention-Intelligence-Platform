@@ -1,0 +1,31 @@
+# Git & Environment
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+
+# Virtual environments & uv cache
+.venv/
+venv/
+env/
+.uv_cache/
+.uv_python/
+
+# Python cache & tests
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Experiment tracking & raw large data
+mlruns/
+mlartifacts/
+mlflow.db
+data/raw/*.csv
+
+# Local documentation & artifacts
+docs/screenshots/
+notebooks/
+scripts/
