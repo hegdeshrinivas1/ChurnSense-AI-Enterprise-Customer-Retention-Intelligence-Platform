@@ -1,4 +1,4 @@
-# 🔮 ChurnSense AI: Enterprise Customer Retention Intelligence Platform
+# ChurnSense AI: Enterprise Customer Retention Intelligence Platform
 
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111+-009688.svg?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
